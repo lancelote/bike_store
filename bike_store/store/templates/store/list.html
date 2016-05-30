@@ -1,0 +1,17 @@
+{% extends "store/base.html" %}
+
+{% block title %}Bike Store{% endblock %}
+
+{% block content %}
+    <h1>Awesome Bike Store</h1>
+    {% if not spare_parts %}
+        <p>No spare parts available</p>
+    {% else %}
+        {% for spare_part in spare_parts %}
+            <ul>
+                <li>{{ spare_part.name }}</li>
+            </ul>
+        {% endfor %}
+    {% endif %}
+    {% include "store/pagination.html" with page=spare_parts %}
+{% endblock %}
