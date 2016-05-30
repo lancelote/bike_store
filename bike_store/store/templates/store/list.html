@@ -3,7 +3,11 @@
 {% block title %}Bike Store{% endblock %}
 
 {% block content %}
-    <h1>Awesome Bike Store</h1>
+    <h1>Available Offers</h1>
+    <form method="GET" action="">
+        <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search for spare parts"/>
+        <input type="submit" value="Search">
+    </form>
     <hr>
     {% if not spare_parts %}
         <p>No spare parts available</p>

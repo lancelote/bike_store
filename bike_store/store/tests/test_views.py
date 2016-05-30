@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from factories import BrandFactory, SparePartFactory
+from store.factories import BrandFactory, SparePartFactory
 
 
 class SparePartListTest(TestCase):
@@ -27,6 +27,28 @@ class SparePartListTest(TestCase):
         spare_parts = [SparePartFactory() for _ in range(11)]
         response = self.client.get('/store/?page=999')
         self.assertEqual(list(response.context['spare_parts']), [spare_parts[10]])
+
+    def test_can_filter_by_spare_part_name(self):
+        spare_part1 = SparePartFactory()
+        spare_part2 = SparePartFactory()
+
+        response = self.client.get('/store/?q=%s' % '+'.join(spare_part1.name.split()))
+        self.assertEqual(list(response.context['spare_parts']), [spare_part1])
+
+        response = self.client.get('/store/?q=%s' % '+'.join(spare_part2.name.split()))
+        self.assertEqual(list(response.context['spare_parts']), [spare_part2])
+
+    def test_can_filter_by_brand_name(self):
+        brand1 = BrandFactory()
+        brand2 = BrandFactory()
+        spare_part1 = SparePartFactory(brand=brand1)
+        spare_part2 = SparePartFactory(brand=brand2)
+
+        response = self.client.get('/store/?q=%s' % '+'.join(brand1.name.split()))
+        self.assertEqual(list(response.context['spare_parts']), [spare_part1])
+
+        response = self.client.get('/store/?q=%s' % '+'.join(brand2.name.split()))
+        self.assertEqual(list(response.context['spare_parts']), [spare_part2])
 
 
 class SparePartDetailTest(TestCase):

@@ -5,7 +5,7 @@
 {% block content %}
     <h1>Top brands</h1>
     {% if not brands %}
-    <p>No brands available</p>
+    <p>No brands with at least 5 spare parts available</p>
     {% endif %}
     {% for brand in brands %}
         <h2>{{ brand.name }}</h2>

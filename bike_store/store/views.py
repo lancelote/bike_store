@@ -1,6 +1,5 @@
-from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 
@@ -11,6 +10,12 @@ from .models import Brand, SparePart
 def spare_part_list(request):
     """Список выставленных запчастей"""
     object_list = SparePart.objects.all()
+
+    query = request.GET.get('q')
+    if query:
+        object_list = object_list.filter(
+            Q(name__icontains=query) | Q(brand__name__icontains=query)
+        )
 
     paginator = Paginator(object_list, 10)
     page = request.GET.get('page')
