@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from .models import SparePart
 
@@ -23,9 +23,12 @@ def spare_part_list(request):
     })
 
 
-def spare_part_detail(request, spare_part_id):
+def spare_part_detail(request, spare_part):
     """Информация о детали, добавление новой"""
-    pass
+    spare_part = get_object_or_404(SparePart, id=spare_part)
+    return render(request, 'store/detail.html', {
+        'spare_part': spare_part
+    })
 
 
 def statistics(request):

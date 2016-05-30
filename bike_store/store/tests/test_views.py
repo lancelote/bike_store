@@ -27,3 +27,20 @@ class SparePartListTest(TestCase):
         spare_parts = [SparePartFactory() for _ in range(11)]
         response = self.client.get('/store/?page=999')
         self.assertEqual(list(response.context['spare_parts']), [spare_parts[10]])
+
+
+class SparePartDetail(TestCase):
+
+    def setUp(self):
+        self.spare_part = SparePartFactory()
+        self.response = self.client.get('/store/%d/' % self.spare_part.id)
+
+    def test_renders_correct_template(self):
+        self.assertTemplateUsed(self.response, 'store/detail.html')
+
+    def test_response_contains_spare_part_name(self):
+        self.assertContains(self.response, self.spare_part.name)
+
+    def test_unknown_spare_part_returns_404(self):
+        response = self.client.get('/store/999/')
+        self.assertEqual(response.status_code, 404)

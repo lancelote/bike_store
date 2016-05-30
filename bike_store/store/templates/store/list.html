@@ -9,7 +9,7 @@
     {% else %}
         {% for spare_part in spare_parts %}
             <ul>
-                <li>{{ spare_part.name }}</li>
+                <li><a href="{{ spare_part.id }}">{{ spare_part.name }}</a> @ {{ spare_part.brand }}</li>
             </ul>
         {% endfor %}
     {% endif %}

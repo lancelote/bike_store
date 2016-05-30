@@ -1,0 +1,12 @@
+{% extends "store/base.html" %}
+
+{% block title %}{{ spare_part.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ spare_part.name }}</h1>
+    <ul>
+        <li>Brand: {{ spare_part.brand }}</li>
+        <li>Price: {{ spare_part.price }}</li>
+        <li>Contacts: {{ spare_part.contact }}</li>
+    </ul>
+{% endblock %}
