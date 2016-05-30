@@ -15,7 +15,7 @@ def spare_part_list(request):
     if query:
         object_list = object_list.filter(
             Q(name__icontains=query) | Q(brand__name__icontains=query)
-        )
+        ).distinct()
 
     paginator = Paginator(object_list, 10)
     page = request.GET.get('page')
