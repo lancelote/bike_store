@@ -1,6 +1,9 @@
+from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 
+from .forms import SparePartForm
 from .models import SparePart
 
 
@@ -28,6 +31,20 @@ def spare_part_detail(request, spare_part):
     spare_part = get_object_or_404(SparePart, id=spare_part)
     return render(request, 'store/detail.html', {
         'spare_part': spare_part
+    })
+
+
+def add_new(request):
+    if request.method == 'POST':
+        spare_part_form = SparePartForm(data=request.POST)
+        if spare_part_form.is_valid():
+            spare_part = spare_part_form.save()
+            return HttpResponseRedirect('/store/%s/' % spare_part.id)
+    else:
+        spare_part_form = SparePartForm()
+
+    return render(request, 'store/new.html', {
+        'spare_part_form': spare_part_form
     })
 
 

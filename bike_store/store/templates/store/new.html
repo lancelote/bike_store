@@ -1,0 +1,12 @@
+{% extends "store/base.html" %}
+
+{% block title %}New spare part{% endblock %}
+
+{% block content %}
+    <h1>New spare part</h1>
+    <form action="." method="post" id="new-comment">
+        {% csrf_token %}
+        {{ spare_part_form.as_p }}
+        <p><input type="submit" value="Add spare part"></p>
+    </form>
+{% endblock %}

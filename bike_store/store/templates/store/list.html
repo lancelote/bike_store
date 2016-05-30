@@ -4,6 +4,7 @@
 
 {% block content %}
     <h1>Awesome Bike Store</h1>
+    <hr>
     {% if not spare_parts %}
         <p>No spare parts available</p>
     {% else %}
@@ -14,4 +15,8 @@
         {% endfor %}
     {% endif %}
     {% include "store/pagination.html" with page=spare_parts %}
+    <hr>
+    <div>
+        <a href="/store/new/">Add new spare part...</a>
+    </div>
 {% endblock %}
