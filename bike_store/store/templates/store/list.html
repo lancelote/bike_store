@@ -16,7 +16,6 @@
     {% endif %}
     {% include "store/pagination.html" with page=spare_parts %}
     <hr>
-    <div>
-        <a href="/store/new/">Add new spare part...</a>
-    </div>
+    <div><a href="{% url 'store:new' %}">Add new spare part</a></div>
+    <div><a href="{% url 'store:statistics' %}">View top brands</a></div>
 {% endblock %}

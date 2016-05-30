@@ -6,7 +6,10 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <div id="container">
+    <div>
+        <h1><a href="{% url 'store:spare_part_list' %}">Bike Spare Part Shop</a></h1>
+    </div>
+    <div>
         {% block content %}{% endblock %}
     </div>
 </body>

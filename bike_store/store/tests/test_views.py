@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from factories import SparePartFactory
+from factories import BrandFactory, SparePartFactory
 
 
 class SparePartListTest(TestCase):
@@ -29,7 +29,7 @@ class SparePartListTest(TestCase):
         self.assertEqual(list(response.context['spare_parts']), [spare_parts[10]])
 
 
-class SparePartDetail(TestCase):
+class SparePartDetailTest(TestCase):
 
     def setUp(self):
         self.spare_part = SparePartFactory()
@@ -44,3 +44,28 @@ class SparePartDetail(TestCase):
     def test_unknown_spare_part_returns_404(self):
         response = self.client.get('/store/999/')
         self.assertEqual(response.status_code, 404)
+
+
+class StatisticsTest(TestCase):
+
+    def setUp(self):
+        self.brand1 = BrandFactory()
+        self.brand2 = BrandFactory()
+        self.brand3 = BrandFactory()
+
+        for _ in range(5):
+            SparePartFactory(brand=self.brand1)
+            SparePartFactory(brand=self.brand2)
+
+        SparePartFactory(brand=self.brand1)
+
+        self.response = self.client.get('/store/stats/')
+
+    def test_renders_correct_result(self):
+        self.assertTemplateUsed(self.response, 'store/stats.html')
+
+    def test_shows_only_brands_with_5_or_more_spare_parts(self):
+        self.assertNotContains(self.response, self.brand3.name)
+
+    def test_brands_sorted_by_number_of_spare_parts(self):
+        self.assertEqual(list(self.response.context['brands']), [self.brand1, self.brand2])

@@ -1,10 +1,11 @@
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Count
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 
 from .forms import SparePartForm
-from .models import SparePart
+from .models import Brand, SparePart
 
 
 def spare_part_list(request):
@@ -50,4 +51,10 @@ def add_new(request):
 
 def statistics(request):
     """Статистика по популярным маркам"""
-    pass
+    brands = Brand.objects.select_related() \
+                          .annotate(parts_num=Count('sparepart')) \
+                          .filter(parts_num__gte=5) \
+                          .order_by('-parts_num')
+    return render(request, 'store/stats.html', {
+        'brands': brands
+    })
