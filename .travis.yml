@@ -24,4 +24,4 @@ before_script:
 
 script:
   - python3 bike_store/manage.py test store
-  - python3 -m pylint mysite/store/
+  - python3 -m pylint bike_store/store/
