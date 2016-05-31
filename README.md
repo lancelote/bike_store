@@ -15,6 +15,11 @@
 | --- | --- | --- |
 | `SECRET_KEY` | `z)bvej^e3r23wrg&l7b0!r0p1y%5!*3@&c+-66&)p816yic^h!` | Секретный ключ Django проекта |
 
+## Requirements
+
+- Python 3
+- `pip intsall -r requirements.txt`
+
 ## API
 
 - Список запчасей `.../api/list/`
