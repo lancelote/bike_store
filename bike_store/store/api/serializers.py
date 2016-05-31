@@ -1,3 +1,5 @@
+# pylint: disable=no-self-use
+
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from store.models import Brand, SparePart

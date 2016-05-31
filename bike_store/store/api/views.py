@@ -1,3 +1,5 @@
+# pylint: disable=unused-argument
+
 from django.db.models import Count
 
 from rest_framework.filters import SearchFilter

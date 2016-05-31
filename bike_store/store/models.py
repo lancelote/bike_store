@@ -5,6 +5,7 @@ from django.db import models
 
 
 class Brand(models.Model):
+    """Марка запасной части"""
 
     name = models.CharField(max_length=100)
 
@@ -13,6 +14,7 @@ class Brand(models.Model):
 
 
 class SparePart(models.Model):
+    """Запасная часть"""
 
     name = models.CharField(max_length=100)
     brand = models.ForeignKey(Brand)
