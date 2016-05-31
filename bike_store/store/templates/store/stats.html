@@ -7,12 +7,9 @@
     {% if not brands %}
     <p>No brands with at least 5 spare parts available</p>
     {% endif %}
-    {% for brand in brands %}
-        <h2>{{ brand.name }}</h2>
-        <ul>
-            {% for spare_part in brand.sparepart_set.all|slice:":10" %}
-                <li><a href="{% url 'store:spare_part_detail' spare_part=spare_part.id %}">{{ spare_part.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endfor %}
+    <ol>
+        {% for brand in brands %}
+            <li><b>{{ brand.name }}</b>: {{ brand.parts_num }} spare parts</li>
+        {% endfor %}
+    </ol>
 {% endblock %}
