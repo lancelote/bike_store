@@ -19,9 +19,9 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - sleep 3
   - export SECRET_KEY="78m5@7^h(lne^@08$0@dn5i%96v^*u@v+1zp9_5t!iagf5319v"
-  - python3 mysite/manage.py migrate
+  - python3 bike_store/manage.py migrate
   - sleep 3
 
 script:
-  - python3 mysite/manage.py test store
+  - python3 bike_store/manage.py test store
   - python3 -m pylint mysite/blog
