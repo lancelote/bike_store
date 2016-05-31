@@ -11,12 +11,14 @@ def spare_part_list(request):
     """Список выставленных запчастей"""
     object_list = SparePart.objects.all()
 
+    # Search
     query = request.GET.get('q')
     if query:
         object_list = object_list.filter(
             Q(name__icontains=query) | Q(brand__name__icontains=query)
         ).distinct()
 
+    # Pagination
     paginator = Paginator(object_list, 10)
     page = request.GET.get('page')
     try:
