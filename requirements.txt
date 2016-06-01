@@ -7,7 +7,7 @@ fake-factory==0.5.7
 lazy-object-proxy==1.2.2
 py==1.4.31
 pylint==1.5.5
-pytest==2.9.1
+pytest==2.9.2
 python-dateutil==2.5.3
 six==1.10.0
 wrapt==1.10.8
